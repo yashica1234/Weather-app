@@ -5,25 +5,26 @@ const apiKey = "YOUR_API_KEY";
 
         async function checkWeather(city){
             const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
-            if (response.status == 404){
-                document.querySelector(".error").style.display = "block";
-                document.querySelector(".weather").style.display = "none";
+            if (response.status == 404){ //error has occured
+                document.querySelector(".error").style.display = "block"; //display error message
+                 document.querySelector(".weather").style.display = "none"; //hide weather card
            
             }else{
-                 var data= await response.json();
-            console.log(data);
-             document.querySelector(".weather").style.display = "block";
-    document.querySelector(".error").style.display = "none";
+                 var data= await response.json(); //API response ko JavaScript-readable data mein convert karta hai.
 
-            document.querySelector(".city").innerHTML = data.name;
-           document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
-           document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
-           document.querySelector(".wind").innerHTML = data.wind.speed + " km/hr";
+            console.log(data);
+             document.querySelector(".weather").style.display = "block"; //show weather card
+    document.querySelector(".error").style.display = "none"; //hide error message
+
+            document.querySelector(".city").innerHTML = data.name; //city name update
+           document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C"; //temp update
+           document.querySelector(".humidity").innerHTML = data.main.humidity + "%"; //humidity update
+           document.querySelector(".wind").innerHTML = data.wind.speed + " km/hr"; //wind speed update
            if (data.weather[0].main == "Clouds"){
             const weatherIcon = document.querySelector(".weather-icon");
             weatherIcon.src = "images/clouds.png";
            }
-            else if (data.weather[0].main == "Cleaab r"){
+            else if (data.weather[0].main == "Clear"){
                 const weatherIcon = document.querySelector(".weather-icon");
                 weatherIcon.src = "images/clear.png";
             }
